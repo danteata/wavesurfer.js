@@ -191,6 +191,10 @@ class RecordPlugin extends BasePlugin<RecordPluginEvents, RecordPluginOptions> {
     mediaRecorder.ondataavailable = (event) => {
       if (event.data.size > 0) {
         this.recordedChunks.push(event.data)
+        console.log('recordedChunks', {
+          length: this.recordedChunks.length,
+          data: event.data,
+        })
       }
     }
 
@@ -220,6 +224,13 @@ class RecordPlugin extends BasePlugin<RecordPluginEvents, RecordPluginOptions> {
   /** Get the current recorded chunks */
   public getRecordedChunks(): BlobPart[] {
     return this.recordedChunks
+  }
+
+  /**
+   * Reset the recorded chunks
+   */
+  public resetRecordedChunks(): void {
+    this.recordedChunks = []
   }
 
   /** Get the duration of the recording */
